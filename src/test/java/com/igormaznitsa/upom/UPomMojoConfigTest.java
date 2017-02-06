@@ -91,7 +91,7 @@ public class UPomMojoConfigTest extends AbstractMojoTestCase {
     
     assertArrayEquals(new String[]{"keep/keep1", "keep1/keep2"}, myMojo.getKeep());
     assertArrayEquals(new String[]{"path/path1", "path1/path2"}, myMojo.getRemove());
-    assertEquals("/test/folder", myMojo.getFolder().getAbsolutePath());
+    assertEquals(new File("/test/folder").getAbsolutePath(), myMojo.getFolder().getAbsolutePath());
     assertEquals("testName.xml", myMojo.getName());
     assertEquals(678, myMojo.getDepth());
     assertTrue(myMojo.isRemoveSiblingDuplications());
@@ -117,7 +117,7 @@ public class UPomMojoConfigTest extends AbstractMojoTestCase {
     
     assertArrayEquals(new String[]{"keep/keep1", "keep1/keep2"}, myMojo.getKeep());
     assertArrayEquals(new String[]{"path/path1", "path1/path2"}, myMojo.getRemove());
-    assertEquals("/test/folder", myMojo.getFolder().getAbsolutePath());
+    assertEquals(new File("/test/folder").getAbsolutePath(), myMojo.getFolder().getAbsolutePath());
     assertEquals("testName.xml", myMojo.getName());
     assertEquals(678, myMojo.getDepth());
   }

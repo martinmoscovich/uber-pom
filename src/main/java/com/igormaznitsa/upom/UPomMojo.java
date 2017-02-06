@@ -95,6 +95,9 @@ public class UPomMojo extends AbstractMojo {
    */
   @Parameter(name = "set")
   protected Properties set;
+  
+  @Parameter(name = "removeSelf", defaultValue = "true")
+  protected boolean removeSelf;
 
   public File getFolder() {
     return this.folder;
@@ -327,6 +330,11 @@ public class UPomMojo extends AbstractMojo {
       final String REMOVE_PREFIX = "Remove ";
       int maxLength = REMOVE_PREFIX.length() + getMaxStrLength(this.remove) + 12;
 
+      if(this.removeSelf) {
+    	  getLog().info("Removing uber-pom plugin definition from resulting POM");
+    	  main.removeSelf();
+      }
+      
       if (this.remove != null && this.remove.length > 0) {
         for (final String path : this.remove) {
           final String prefix = REMOVE_PREFIX + '\'' + path + '\'';

@@ -26,6 +26,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.apache.commons.io.IOUtils;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.Plugin;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.model.io.xpp3.MavenXpp3Writer;
 import org.apache.maven.model.merge.ModelMerger;
@@ -40,6 +41,9 @@ public final class UPomModel {
 
   private static final String MAVEN_MODEL_PACKAGE_PREFIX = "org.apache.maven.model.";
 
+  private static final String UBER_POM_GROUPID = "com.igormaznitsa";
+  private static final String UBER_POM_ARTIFACTID = "uber-pom";
+  
   private final Model model;
   private final Map<String, Object> savedValues = new HashMap<String, Object>();
 
@@ -188,6 +192,19 @@ public final class UPomModel {
     final ModelMerger merger = new ModelMerger();
     merger.merge(this.model, other.model, true, null);
     return this;
+  }
+  
+  public void removeSelf() {
+	  if(this.model.getBuild() == null) throw new UPomException("Cannot find plugin definitions in POM");
+	  
+	  this.model.getBuild().removePlugin(this.getUberPomPlugin());
+  }
+  
+  private Plugin getUberPomPlugin() {
+	  for(Plugin plugin : this.model.getBuild().getPlugins()) {
+		  if(UBER_POM_GROUPID.equals(plugin.getGroupId()) && UBER_POM_ARTIFACTID.equals(plugin.getArtifactId())) return plugin;
+	  }
+	  throw new UPomException("Cannot find uber-pom plugin definition");
   }
 
   public boolean remove(final String removePath) throws Exception {
