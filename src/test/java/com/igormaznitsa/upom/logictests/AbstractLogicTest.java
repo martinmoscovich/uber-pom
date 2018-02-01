@@ -1,8 +1,8 @@
 package com.igormaznitsa.upom.logictests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
-import java.io.InputStream;
-import static org.junit.Assert.*;
 
 public abstract class AbstractLogicTest {
   public File getFolder(final String name) throws Exception {

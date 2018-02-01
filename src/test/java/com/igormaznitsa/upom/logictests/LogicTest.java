@@ -147,7 +147,7 @@ public class LogicTest extends AbstractLogicTest {
     assertEquals("testparent872364",model1.get("parent/version"));
     assertEquals("testparent872364",model1.getModel().getParent().getVersion());
     assertNull(model1.get("url"));
-    assertArrayEquals(new String[]{"modul1","modul2","modul3"}, ((Collection)model1.get("modules")).toArray());
+    assertArrayEquals(new String[]{"modul1","modul2","modul3"}, ((Collection<String>)model1.get("modules")).toArray());
   }
 
   @Test
